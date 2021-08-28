@@ -82,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
         last_answer = temp.toString();
         if(temp.round()==temp)
         last_answer = last_answer.substring(0,last_answer.length-2);
-        
         operation = s[i];
       }
     }
