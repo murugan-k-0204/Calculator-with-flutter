@@ -30,11 +30,6 @@ class SizeConfig{
 }
 
 
-
-
-
-
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -128,7 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           SizedBox(
-            
             height: 31.5 * h,
             width: 100 * w,
             child: Center(
@@ -142,7 +136,6 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height: 10*h,
             width: 100*w,
-
             child: Center(
               child: Text(
                 last_answer.toString(),
