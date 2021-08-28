@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Calculator App",
       home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -50,9 +51,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String main_area = "";
   String answer_area = "";
-  int last_answer = 0;
-  int do_operation(String sign, int a, int b){
-    
+  double last_answer = 0;
+
+  double do_operation(String sign, double a, double b){
     if(sign=="+")
       return a+b;
     if(sign=="-")
@@ -60,9 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
     if(sign=="*")
       return a*b;
     if(sign=="/")
-      return (a/b).round();
-    return 0;
-
+      return (a/b);
+    return 0.0;
   }
 
   void calculate(String s){
@@ -70,12 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
     String number = "";
     last_answer = 0;
     String operation = "+";
-    int going_to =0;
+    double going_to =0;
     for (int i=0; i<s.length;i++){
       if(s[i]!='+' && s[i]!='-' && s[i]!='*'  && s[i]!='/' && s[i]!='%')
         number+=s[i];
       else{
-        going_to = int.parse(number);
+        going_to = double.parse(number);
         number = "";
         last_answer = do_operation(operation, last_answer, going_to);
         operation = s[i];
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  SizedBox raiButton(String s, Color color,double w, double h) {
+  SizedBox raiButton(String s, Color color, double w, double h) {
     return SizedBox(
       height: 10 * h,
       width: 25 * w,
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
               main_area += s;
           });
         },
-        child: Text(s),
+        child: Text(s,style: TextStyle(fontSize: 30),),
       ),
     );
   }
@@ -119,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Calculator App"),
+        
       ),
       body: Column(
         children: [
