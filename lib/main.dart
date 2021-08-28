@@ -51,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String main_area = "";
   String answer_area = "";
-  double last_answer = 0;
+  String last_answer = "0";
 
   double do_operation(String sign, double a, double b){
     if(sign=="+")
@@ -68,16 +68,21 @@ class _MyHomePageState extends State<MyHomePage> {
   void calculate(String s){
     s+='+';
     String number = "";
-    last_answer = 0;
+    last_answer = "0";
     String operation = "+";
     double going_to =0;
+    double temp = 0.0;
     for (int i=0; i<s.length;i++){
       if(s[i]!='+' && s[i]!='-' && s[i]!='*'  && s[i]!='/' && s[i]!='%')
         number+=s[i];
       else{
         going_to = double.parse(number);
         number = "";
-        last_answer = do_operation(operation, last_answer, going_to);
+        temp = do_operation(operation, temp, going_to);
+        last_answer = temp.toString();
+        if(temp.round()==temp)
+        last_answer = last_answer.substring(0,last_answer.length-2);
+        
         operation = s[i];
       }
     }
@@ -87,26 +92,27 @@ class _MyHomePageState extends State<MyHomePage> {
     return SizedBox(
       height: 10 * h,
       width: 25 * w,
-      child: RaisedButton(
+      child: ElevatedButton(
         // disabledColor: color,
-        disabledTextColor: Colors.black,
-        color: color,
         onPressed: () {
           setState(() {
             if(s=="="){
               calculate(main_area);
             }
-            else if(s=='<')
+            else if(s=="<")
               main_area = main_area.substring(0, main_area.length - 1);
             else if (s == 'C'){
               main_area = "";
-              last_answer = 0;
+              last_answer = "0";
             }
             else
               main_area += s;
           });
         },
-        child: Text(s,style: TextStyle(fontSize: 30),),
+        child: Text(s,style: TextStyle(fontSize: 30,color: Colors.black),),
+        style: ElevatedButton.styleFrom(
+          primary: color,
+        ),
       ),
     );
   }
@@ -140,17 +146,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: Text(
                 last_answer.toString(),
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 50,fontWeight: FontWeight.w900,),
               ),
               
             ),
           ),
           Row(
             children: [
-              raiButton("C", Colors.white,w,h),
+              raiButton("C", Colors.red,w,h),
               raiButton("+", Colors.blueAccent,w,h),
               raiButton("-", Colors.blueAccent,w,h),
-              raiButton("<", Colors.red,w,h),
+              raiButton("<", Colors.orange,w,h),
             ],
           ),
           Row(
@@ -182,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
               raiButton("0", Colors.amber,w,h),
               raiButton("00", Colors.amber,w,h),
               raiButton(".", Colors.amber,w,h),
-              raiButton("=", Colors.deepOrange,w,h),
+              raiButton("=", Colors.green,w,h),
             ],
           ),
         ],
