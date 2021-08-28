@@ -10,12 +10,22 @@ class SizeConfig{
   static late double Height;
   static late double Width;
 
+  static late double _safeAreaHori;
+  static late double _safeAreaVert;
+  static late double safeAreaHeight;
+  static late double safeAreaWidth;
+
   void init(BuildContext context){
     _mediaQueryData = MediaQuery.of(context);
     screenHeight = _mediaQueryData.size.height;
     screenWidth = _mediaQueryData.size.width;
     Width = screenWidth/100;
     Height = screenHeight/100;
+
+    _safeAreaVert = _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+    _safeAreaHori = _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+    safeAreaHeight = (screenHeight - _safeAreaHori) / 100;
+    safeAreaWidth = (screenWidth - _safeAreaVert) / 100;
   }
 }
 
@@ -109,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double w = SizeConfig.Width;
-    double h = SizeConfig.Height;
+    double w = SizeConfig.safeAreaWidth;
+    double h = SizeConfig.safeAreaHeight;
     return Scaffold(
       appBar: AppBar(
         title: Text("Calculator App"),
@@ -118,9 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           SizedBox(
-            height: 24.5 * h,
+            
+            height: 31.5 * h,
             width: 100 * w,
             child: Center(
+              
               child: Text(
                 main_area,
                 style: TextStyle(fontSize: 40),
