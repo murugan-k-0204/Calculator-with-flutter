@@ -111,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Text(s,style: TextStyle(fontSize: 30,color: Colors.black),),
         style: ElevatedButton.styleFrom(
           primary: color,
+
         ),
       ),
     );
@@ -124,7 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Calculator App"),
-        
       ),
       body: Column(
         children: [
